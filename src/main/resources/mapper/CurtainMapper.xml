@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanglong.curtain.mapper.CurtainMapper">
+    <resultMap id="BaseResultMap" type="com.yanglong.curtain.model.Curtain">
+        <id column="curtainId" jdbcType="BIGINT" property="curtainId"/>
+        <result column="curtainNo" jdbcType="VARCHAR" property="curtainNo"/>
+        <result column="curtainName" jdbcType="VARCHAR" property="curtainName"/>
+        <result column="curtainDate" jdbcType="TIMESTAMP" property="curtainDate"/>
+        <result column="curtainCover" jdbcType="VARCHAR" property="curtainCover"/>
+        <result column="curtainDetail" jdbcType="VARCHAR" property="curtainDetail"/>
+        <result column="curtainRecommend" jdbcType="VARCHAR" property="curtainRecommend"/>
+        <result column="curtainDesign" jdbcType="VARCHAR" property="curtainDesign"/>
+        <result column="curtainPrice" jdbcType="CHAR" property="curtainPrice"/>
+        <result column="curtainThickness" jdbcType="CHAR" property="curtainThickness"/>
+        <result column="curtainVertical" jdbcType="CHAR" property="curtainVertical"/>
+        <result column="curtainHandfeel" jdbcType="CHAR" property="curtainHandfeel"/>
+        <result column="curtainSuspend" jdbcType="CHAR" property="curtainSuspend"/>
+        <result column="curtainStatus" jdbcType="CHAR" property="curtainStatus"/>
+    </resultMap>
+    <!--resultMap union imgs -->
+    <resultMap id="ImgsResultMap" extends="BaseResultMap" type="com.yanglong.curtain.model.Curtain">
+        <collection property="images" ofType="com.yanglong.curtain.model.CurtainImgs"
+                    javaType="ArrayList">
+            <id column="imgId" jdbcType="BIGINT" property="imgId"/>
+            <result column="imgsDescribe" jdbcType="VARCHAR" property="imgsDescribe"/>
+            <result column="img" jdbcType="VARCHAR" property="img"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    curtainId, curtainNo, curtainName, curtainDate, curtainCover, curtainDetail, curtainRecommend, 
+    curtainDesign, curtainPrice, curtainThickness, curtainVertical, curtainHandfeel, 
+    curtainSuspend, curtainStatus
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from curtain
+        where curtainId = #{curtainId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from curtain
+    where curtainId = #{curtainId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.yanglong.curtain.model.Curtain">
+    insert into curtain (curtainId, curtainNo, curtainName, 
+      curtainDate, curtainCover, curtainDetail, 
+      curtainRecommend, curtainDesign, curtainPrice, 
+      curtainThickness, curtainVertical, curtainHandfeel, 
+      curtainSuspend, curtainStatus)
+    values (#{curtainId,jdbcType=BIGINT}, #{curtainNo,jdbcType=VARCHAR}, #{curtainName,jdbcType=VARCHAR}, 
+      #{curtainDate,jdbcType=TIMESTAMP}, #{curtainCover,jdbcType=VARCHAR}, #{curtainDetail,jdbcType=VARCHAR}, 
+      #{curtainRecommend,jdbcType=VARCHAR}, #{curtainDesign,jdbcType=VARCHAR}, #{curtainPrice,jdbcType=CHAR}, 
+      #{curtainThickness,jdbcType=CHAR}, #{curtainVertical,jdbcType=CHAR}, #{curtainHandfeel,jdbcType=CHAR}, 
+      #{curtainSuspend,jdbcType=CHAR}, #{curtainStatus,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.yanglong.curtain.model.Curtain"
+            useGeneratedKeys="true" keyProperty="curtainId">
+        insert into curtain
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="curtainId != null">
+                curtainId,
+            </if>
+            <if test="curtainNo != null">
+                curtainNo,
+            </if>
+            <if test="curtainName != null">
+                curtainName,
+            </if>
+            <if test="curtainDate != null">
+                curtainDate,
+            </if>
+            <if test="curtainCover != null">
+                curtainCover,
+            </if>
+            <if test="curtainDetail != null">
+                curtainDetail,
+            </if>
+            <if test="curtainRecommend != null">
+                curtainRecommend,
+            </if>
+            <if test="curtainDesign != null">
+                curtainDesign,
+            </if>
+            <if test="curtainPrice != null">
+                curtainPrice,
+            </if>
+            <if test="curtainThickness != null">
+                curtainThickness,
+            </if>
+            <if test="curtainVertical != null">
+                curtainVertical,
+            </if>
+            <if test="curtainHandfeel != null">
+                curtainHandfeel,
+            </if>
+            <if test="curtainSuspend != null">
+                curtainSuspend,
+            </if>
+            <if test="curtainStatus != null">
+                curtainStatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="curtainId != null">
+                #{curtainId,jdbcType=BIGINT},
+            </if>
+            <if test="curtainNo != null">
+                #{curtainNo,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainName != null">
+                #{curtainName,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDate != null">
+                #{curtainDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="curtainCover != null">
+                #{curtainCover,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDetail != null">
+                #{curtainDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainRecommend != null">
+                #{curtainRecommend,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDesign != null">
+                #{curtainDesign,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainPrice != null">
+                #{curtainPrice,jdbcType=CHAR},
+            </if>
+            <if test="curtainThickness != null">
+                #{curtainThickness,jdbcType=CHAR},
+            </if>
+            <if test="curtainVertical != null">
+                #{curtainVertical,jdbcType=CHAR},
+            </if>
+            <if test="curtainHandfeel != null">
+                #{curtainHandfeel,jdbcType=CHAR},
+            </if>
+            <if test="curtainSuspend != null">
+                #{curtainSuspend,jdbcType=CHAR},
+            </if>
+            <if test="curtainStatus != null">
+                #{curtainStatus,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yanglong.curtain.model.Curtain">
+        update curtain
+        <set>
+            <if test="curtainNo != null">
+                curtainNo = #{curtainNo,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainName != null">
+                curtainName = #{curtainName,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDate != null">
+                curtainDate = #{curtainDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="curtainCover != null">
+                curtainCover = #{curtainCover,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDetail != null">
+                curtainDetail = #{curtainDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainRecommend != null">
+                curtainRecommend = #{curtainRecommend,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainDesign != null">
+                curtainDesign = #{curtainDesign,jdbcType=VARCHAR},
+            </if>
+            <if test="curtainPrice != null">
+                curtainPrice = #{curtainPrice,jdbcType=CHAR},
+            </if>
+            <if test="curtainThickness != null">
+                curtainThickness = #{curtainThickness,jdbcType=CHAR},
+            </if>
+            <if test="curtainVertical != null">
+                curtainVertical = #{curtainVertical,jdbcType=CHAR},
+            </if>
+            <if test="curtainHandfeel != null">
+                curtainHandfeel = #{curtainHandfeel,jdbcType=CHAR},
+            </if>
+            <if test="curtainSuspend != null">
+                curtainSuspend = #{curtainSuspend,jdbcType=CHAR},
+            </if>
+            <if test="curtainStatus != null">
+                curtainStatus = #{curtainStatus,jdbcType=CHAR},
+            </if>
+        </set>
+        where curtainId = #{curtainId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yanglong.curtain.model.Curtain">
+    update curtain
+    set curtainNo = #{curtainNo,jdbcType=VARCHAR},
+      curtainName = #{curtainName,jdbcType=VARCHAR},
+      curtainDate = #{curtainDate,jdbcType=TIMESTAMP},
+      curtainCover = #{curtainCover,jdbcType=VARCHAR},
+      curtainDetail = #{curtainDetail,jdbcType=VARCHAR},
+      curtainRecommend = #{curtainRecommend,jdbcType=VARCHAR},
+      curtainDesign = #{curtainDesign,jdbcType=VARCHAR},
+      curtainPrice = #{curtainPrice,jdbcType=CHAR},
+      curtainThickness = #{curtainThickness,jdbcType=CHAR},
+      curtainVertical = #{curtainVertical,jdbcType=CHAR},
+      curtainHandfeel = #{curtainHandfeel,jdbcType=CHAR},
+      curtainSuspend = #{curtainSuspend,jdbcType=CHAR},
+      curtainStatus = #{curtainStatus,jdbcType=CHAR}
+    where curtainId = #{curtainId,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectDetailById" resultMap="ImgsResultMap">
+      SELECT
+    c.curtainId,
+    c.curtainNo,
+    c.curtainName,
+    c.curtainDate,
+    c.curtainCover,
+    c.curtainDetail,
+    c.curtainRecommend,
+    c.curtainDesign,
+    c.curtainPrice,
+    c.curtainThickness,
+    c.curtainVertical,
+    c.curtainHandfeel,
+    c.curtainSuspend,
+    c.curtainStatus,
+    i.imgId,
+    i.img,
+    i.imgsDescribe,
+    i.imgStatus
+FROM
+    curtain c
+   left JOIN
+    curtain_imgs i
+ON   i.curtainId = c.curtainId
+WHERE c.curtainId = #{curtainId}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(0)
+        FROM curtain
+        <where>
+            <if test="curtainNo != null">
+                curtainNo REGEXP #{curtainNo,jdbcType=VARCHAR}
+            </if>
+            <if test="curtainName != null">
+                OR curtainName REGEXP #{curtainName,jdbcType=VARCHAR}
+            </if>
+            <if test="curtainCover != null">
+                AND curtainCover = #{curtainCover,jdbcType=VARCHAR}
+            </if>
+            <if test="curtainDesign != null">
+                OR curtainDesign REGEXP #{curtainDesign,jdbcType=VARCHAR}
+            </if>
+            <if test="curtainPrice != null">
+                AND curtainPrice REGEXP #{curtainPrice,jdbcType=CHAR}
+            </if>
+            <if test="curtainThickness != null">
+                AND curtainThickness = #{curtainThickness,jdbcType=CHAR}
+            </if>
+            <if test="curtainVertical != null">
+                AND curtainVertical = #{curtainVertical,jdbcType=CHAR}
+            </if>
+            <if test="curtainHandfeel != null">
+                AND curtainHandfeel = #{curtainHandfeel,jdbcType=CHAR}
+            </if>
+            <if test="curtainSuspend != null">
+                AND curtainSuspend = #{curtainSuspend,jdbcType=CHAR}
+            </if>
+            <if test="curtainStatus != null">
+                AND curtainStatus = #{curtainStatus,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCurtains" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM curtain
+        <if test="curtain!=null">
+            <where>
+                <if test="curtain.curtainNo != null">
+                    curtainNo REGEXP #{curtain.curtainNo,jdbcType=VARCHAR}
+                </if>
+                <if test="curtain.curtainName != null">
+                    OR curtainName REGEXP #{curtain.curtainName,jdbcType=VARCHAR}
+                </if>
+                <if test="curtain.curtainCover != null">
+                    AND curtainCover = #{curtain.curtainCover,jdbcType=VARCHAR}
+                </if>
+                <if test="curtain.curtainDesign != null">
+                    OR curtainDesign REGEXP #{curtain.curtainDesign,jdbcType=VARCHAR}
+                </if>
+                <if test="curtain.curtainPrice != null">
+                    AND curtainPrice REGEXP #{curtain.curtainPrice,jdbcType=CHAR}
+                </if>
+                <if test="curtain.curtainThickness != null">
+                    AND curtainThickness = #{curtain.curtainThickness,jdbcType=CHAR}
+                </if>
+                <if test="curtain.curtainVertical != null">
+                    AND curtainVertical = #{curtain.curtainVertical,jdbcType=CHAR}
+                </if>
+                <if test="curtain.curtainHandfeel != null">
+                    AND curtainHandfeel = #{curtain.curtainHandfeel,jdbcType=CHAR}
+                </if>
+                <if test="curtain.curtainSuspend != null">
+                    AND curtainSuspend = #{curtain.curtainSuspend,jdbcType=CHAR}
+                </if>
+                <if test="curtain.curtainStatus != null">
+                    AND curtainStatus = #{curtain.curtainStatus,jdbcType=CHAR}
+                </if>
+            </where>
+        </if>
+        order by curtainDate desc
+        <if test="startRow!=null and pageSize!=null">
+            LIMIT #{startRow}, #{pageSize}
+        </if>
+    </select>
+</mapper>

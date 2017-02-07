@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="/usr/mavenRepo/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar"/>
+    <context id="MySQL" targetRuntime="MyBatis3">
+        <!--去除注释  -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.199:3306/curtain_show"
+                        userId="root" password="root"></jdbcConnection>
+        <javaModelGenerator targetPackage="com.yanglong.curtain.model" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="false"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.yanglong.curtain.mapper" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yanglong.curtain.mapper" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!-- 用户信息 -->
+        <table tableName="user_info" domainObjectName="UserInfo"
+               enableInsert="true" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="curtain" domainObjectName="Curtain"
+               enableInsert="true" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="curtain_imgs" domainObjectName="CurtainImgs"
+               enableInsert="true" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

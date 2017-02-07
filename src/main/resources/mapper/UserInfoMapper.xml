@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanglong.curtain.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yanglong.curtain.model.UserInfo">
+    <id column="userId" jdbcType="BIGINT" property="userId" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="userPassword" jdbcType="VARCHAR" property="userPassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userId, userName, userPassword
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where userId = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByToken" resultType="com.yanglong.curtain.model.UserInfo">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user_info
+    WHERE userName=#{userName} and userPassword=#{password}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_info
+    where userId = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yanglong.curtain.model.UserInfo">
+    insert into user_info (userId, userName, userPassword
+      )
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yanglong.curtain.model.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="userPassword != null">
+        userPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yanglong.curtain.model.UserInfo">
+    update user_info
+    <set>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        userPassword = #{userPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yanglong.curtain.model.UserInfo">
+    update user_info
+    set userName = #{userName,jdbcType=VARCHAR},
+      userPassword = #{userPassword,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

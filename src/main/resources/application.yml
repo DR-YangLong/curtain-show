@@ -1,0 +1,117 @@
+##！注意这里有坑
+##！因为yml解析会自动转换类型，所以如果你用到Properties的方式来读取获取到的属性，非字符串的值会是null
+# 端口，固定的
+server:
+      port: "80"
+      session:
+        timeout: "7200"
+#开启调试模式
+#debug: true
+#logger 配置
+logging:
+  level:
+    com.yanglong.curtain.mapper: "trace"
+    org.springframework: "error"
+  config: "classpath:logback-spring.xml"
+#数据源配置，可以配置多个
+datasource:
+    name: "datasource"
+    #本地测试&VPS
+    url: "jdbc:mysql://127.0.0.1:3306/curtain_show?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false"
+    username: "root"
+    #本地测试
+    password: "K0PM8DpqVMVTb0wGnyn8uH/X68oLvfbf5RktpaZJLdhHwIWPcevbNeJs9acAhSqqID28/ryqr7SdCXC4rfwYgA=="
+    # druid数据源
+    type: "com.alibaba.druid.pool.DruidDataSource"
+    driver-class-name: "com.mysql.jdbc.Driver"
+    filters: "stat,config"
+    #filters: "stat"
+    #本地测试
+    connectionProperties: "config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIyI0JIzrhCWAPc8CzmP4HxLEXvcAakov7i1eXDfGPShPmqzgBVnvKaqFQzBPc/xhLRDbfZYONIMFjxtNPnXktsCAwEAAQ=="
+    maxActive: "20"
+    initialSize: "1"
+    maxWait: "60000"
+    minIdle: "1"
+    maxIdle: "20"
+    timeBetweenEvictionRunsMillis: "60000"
+    minEvictableIdleTimeMillis: "300000"
+    validationQuery: "select 'x'"
+    testWhileIdle: "true"
+    testOnBorrow: "false"
+    testOnReturn: "false"
+    poolPreparedStatements: "true"
+    maxOpenPreparedStatements: "20"
+
+# spring 配置
+spring:
+#    如果要每次初始化数据库，打开
+#    datasource:
+#      schema: "classpath:database.sql"
+#      sql-script-encoding: "UTF-8"
+    session:
+      store-type: redis
+    redis:
+        host: 127.0.0.1
+        port: 6379
+        password: root
+        database: 0
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1
+          min-idle: 0
+        #集群配置
+#        sentinel:
+#          master: "master"
+#          nodes: "127.0.0.1:6379,127.0.0.1:6380"
+    freemarker:
+      template-loader-path: "classpath:templates"
+      settings:
+          tag_syntax: "auto_detect"
+          template_update_delay: "86400"
+          defaultEncoding: "UTF-8"
+          url_escaping_charset: "UTF-8"
+          locale: "zhCN"
+          date_format: "yyyy年MM月dd日"
+          datetime_format: "yyyy年MM月dd日 HH:mm:ss"
+          time_format: "HH:mm:ss"
+          number_format: "0.######"
+          whitespace_stripping: "true"
+
+#freemarker视图属性及自定义宏设置
+ftlviewcofing:
+    #静态工具配置
+    staticAttributes:
+        staticTools: "com.yanglong.curtain.util.FreemarkerStaticTools"
+    #属性配置
+    #attributes:
+        #name: value
+    cache: "true"
+    cacheLimit: "0"
+    prefix: ""
+    suffix: ".ftl"
+    contentType: "text/html;charset=UTF-8"
+    requestContextAttribute: "request"
+    exposeSpringMacroHelpers: "true"
+    exposeRequestAttributes: "true"
+    exposeSessionAttributes: "true"
+    order: "0"
+    #宏定义
+    autoImports:
+        macro: "/common/commonMacros.ftl"
+# mybatis配置
+mybatis:
+    config:
+      #实体包
+      typeAliasesPackage: "com.yanglong.curtain.model"
+      #mapper.xml位置
+      mapperLocations: "classpath:/mapper/*Mapper.xml"
+# 异常封装name-->url
+error-path:
+    badRequest: "/400"
+    notFount: "/404"
+    serverError: "/500"
+    unauthorized: "/401"
+qiniu:
+    accessKey: "你的key"
+    secretKey: "你的key"

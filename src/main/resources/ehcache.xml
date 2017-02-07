@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" name="curtainCache">
+
+    <!--<terracottaConfig rejoin="true" url="192.168.18.50:9510" />-->
+	<diskStore path="/logs/cache"/>
+
+    <defaultCache  
+	    maxEntriesLocalHeap="0"  
+	    eternal="false"
+	    overflowToDisk="false"  
+	    maxElementsInMemory="10000"
+	    timeToIdleSeconds="0"  
+	    timeToLiveSeconds="0" logging="false">  
+    	 <!--<terracotta clustered="true">
+    	    <nonstop enabled="true" /> 
+    	 </terracotta>-->
+    </defaultCache>  
+	<!-- Set 'maxBytesLocalOffHeap' to the amount of off-heap in-memory 
+  	storage you want to use. This memory is invisible to the Java garbage 
+ 	 collector, providing for gigabytes to terabytes of in-memory data without
+  	garbage collection pauses. --> 
+  	<cache name="userSessionCache"  maxElementsInMemory="100"
+            eternal="true"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LFU" 
+			logging="false" >
+	       <!-- Include the terracotta element so that the data set will be 
+	    managed as a client of the Terracotta server array.  -->
+  		<!--<terracotta clustered="true">
+    	   <nonstop enabled="true" /> 
+    	 </terracotta>-->
+	
+	 	<!-- Specify where to find the server array configuration. In this 
+	  		case, the configuration is retrieved from the local server. --> 
+	</cache>
+	<!-- 每3小时刷新列表，修改和新增要等3小时才能看到 -->
+	<cache name="listCache"   maxElementsInMemory="100000"
+            eternal="false"
+            overflowToDisk="true"
+            timeToIdleSeconds="0"  
+            timeToLiveSeconds="10800"
+            memoryStoreEvictionPolicy="LFU" 
+			logging="false" >
+		  <!--<terracotta clustered="true">
+    	    <nonstop enabled="true" />
+		  </terracotta>-->
+	</cache>
+
+	<!--如果，没有修改，详情缓存一星期-->
+	<cache name="detailCache" maxElementsInMemory="100000"
+		   eternal="true"
+		   overflowToDisk="false"
+		   timeToIdleSeconds="0"
+		   timeToLiveSeconds="604800"
+		   memoryStoreEvictionPolicy="LFU"
+		   logging="false" >
+		<!--<terracotta clustered="true">
+           <nonstop enabled="true" />
+         </terracotta>-->
+	</cache>
+</ehcache>

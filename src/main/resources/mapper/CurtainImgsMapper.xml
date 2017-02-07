@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanglong.curtain.mapper.CurtainImgsMapper">
+  <resultMap id="BaseResultMap" type="com.yanglong.curtain.model.CurtainImgs">
+    <id column="imgId" jdbcType="BIGINT" property="imgId" />
+    <result column="curtainId" jdbcType="BIGINT" property="curtainId" />
+    <result column="imgsDescribe" jdbcType="VARCHAR" property="imgsDescribe" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="imgStatus" jdbcType="CHAR" property="imgStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    imgId, curtainId, imgsDescribe, imgStatus,img
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from curtain_imgs
+    where imgId = #{imgId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from curtain_imgs
+    where imgId = #{imgId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yanglong.curtain.model.CurtainImgs">
+    insert into curtain_imgs (imgId, curtainId, imgsDescribe, img,
+      imgStatus)
+    values (#{imgId,jdbcType=BIGINT}, #{curtainId,jdbcType=BIGINT}, #{imgsDescribe,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR},#{imgStatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yanglong.curtain.model.CurtainImgs">
+    insert into curtain_imgs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
+        imgId,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="curtainId != null">
+        curtainId,
+      </if>
+      <if test="imgsDescribe != null">
+        imgsDescribe,
+      </if>
+      <if test="imgStatus != null">
+        imgStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
+        #{imgId,jdbcType=BIGINT},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="curtainId != null">
+        #{curtainId,jdbcType=BIGINT},
+      </if>
+      <if test="imgsDescribe != null">
+        #{imgsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="imgStatus != null">
+        #{imgStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yanglong.curtain.model.CurtainImgs">
+    update curtain_imgs
+    <set>
+      <if test="curtainId != null">
+        curtainId = #{curtainId,jdbcType=BIGINT},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="imgsDescribe != null">
+        imgsDescribe = #{imgsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="imgStatus != null">
+        imgStatus = #{imgStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where imgId = #{imgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yanglong.curtain.model.CurtainImgs">
+    update curtain_imgs
+    set curtainId = #{curtainId,jdbcType=BIGINT},
+      imgsDescribe = #{imgsDescribe,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      imgStatus = #{imgStatus,jdbcType=CHAR}
+    where imgId = #{imgId,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch" parameterType="arraylist">
+    insert into curtain_imgs(curtainId,imgsDescribe,img) values
+    <foreach collection="imgs" item="img" index="index" separator=",">
+      (#{img.curtainId},#{img.imgsDescribe},#{img.img})
+    </foreach>
+  </insert>
+</mapper>
